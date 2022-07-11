@@ -33,7 +33,8 @@ class ActivitiesController extends Controller
             // inserts request into DB
             $newHistory->activity = $request->activity;
             $newHistory->remarks = $request->remarks;
-            $newHistory->user = "kojo";        
+            $newHistory->user = "kojo";  
+            $newHistory->activity_id = $newAct->id;  
             $newHistory->save();
             Alert::success('Success', 'Your Activity is saved');
         }  
@@ -58,13 +59,17 @@ class ActivitiesController extends Controller
 
     public function getSingle ($id) {
         $activity = Activity::findOrFail($id);
-        return view('pages.activity')->with('activity' , $activity );
+        $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->get();
+
+        return view('pages.activity')->with('activity' , $activity)->with('histories' , $histories);
     }
 
 
     public function editSingle ($id) {
         $activity = Activity::findOrFail($id);
-        return view('pages.activityEdit')->with('activity' , $activity );
+        $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->get();
+
+        return view('pages.activityEdit')->with('activity' , $activity)->with('histories' , $histories);
     }
 
 
@@ -96,39 +101,11 @@ class ActivitiesController extends Controller
             $changes = $newAct->getChanges();
             $insertHis = new History($changes);
             $insertHis->user = "kojo";
+            $insertHis->activity_id = $id;  
             $insertHis->save();
         }        
-
-
-
         return redirect()->route('getSingle' , $id);
     }
-
-    // public function updateSingle (Request $request , $id) {
-    //     $validated = $request->validate([
-    //         'activity' => 'required|min:5',
-    //     ]);
-
-    //     // finds activity
-    //     $newAct = Activity::find($id);
-
-    //     // updated request into DB
-    //     $newAct->activity = $request->activity;
-    //     $newAct->status = $request->status;
-    //     $newAct->remarks = $request->remarks;
-    //     $newAct->user = "kojo";
-
-    //     // saves
-    //     $saved = $newAct->save();
-
-    //     // if updated shows a popup to show successfully saved
-    //     if($saved){
-    //         Alert::success('Success', 'Your Activity has been updated');
-    //     }  
-    //     return redirect()->route('getSingle' , $id);
-    // }
-
-
 
     public function allActivities () {
         // fetch activity status for dashboard
@@ -144,8 +121,20 @@ class ActivitiesController extends Controller
         ->with('activitiesPending' , $activitiesPending);
     }  
 
-    public function searchActivities () {
-        return view('pages.searchActivities');
+    public function searchActivities (Request $request) {
+        $activitiesFilter = Activity::whereBetween('created_at', [$request->get('start_date'), $request->get('end_date')])->get();
+
+        $activitiesThree = Activity::latest()->take(3)->get();
+        $activitiesAll = Activity::all();
+        $activitiesPending = Activity::where('status' , '=' , 0)->get();
+        $activitiesComplete = Activity::where('status' , '=' , 1)->get();
+        
+        return view('pages.searchActivities')
+        ->with('activitiesThree' , $activitiesThree)
+        ->with('activitiesAll' , $activitiesAll)
+        ->with('activitiesComplete' , $activitiesComplete)
+        ->with('activitiesPending' , $activitiesPending)
+        ->with('activitiesFilter', $activitiesFilter);
     }    
 
 

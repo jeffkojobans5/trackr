@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('activity');
             $table->text('remarks')->nullable();
             $table->string('user');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

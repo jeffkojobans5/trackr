@@ -10,7 +10,6 @@
                            <a href={{ url()->previous() }}> <button type="button" class="btn btn-primary mb-1"><i class="fa fa-caret-left" aria-hidden="true"></i> Back </button> </a>
                         </div>
                         <div class="col-xl-6 d-flex justify-content-end">
-                            <button type="button" class="btn btn-warning mb-1"> Edit History <i class="fa fa-eye" aria-hidden="true"></i>  </button>
                         </div>
                 </div>
     </div>
@@ -71,20 +70,37 @@
                             </div>
                         </div>
                         <div class="col-xl-6 p-3">
-                            <div class="alert alert-primary" role="alert"> Most recent Edits <span class="badge badge-pill badge-warning">Edit 54</span></div>
-                            <p> On Mon 23 September 2022 : 2 O'olock</p>
-                            <p> Activity: Changed to completed </p>
-                            <p> Editor: Bansah Jephthah </p>
-                            <p> Status: <i class="fas fa-check-circle"></i> </p>
-                            <p> Comments : </p>
-                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, fuga at. Facere, iure. 
-                                In cum, eaque et recusandae quibusdam beatae ullam vitae dolor sapiente 
-                                magni doloribus voluptatem ea dolorum odio!</p>
+                            <p> <b>Updated on :   {{ $histories[0]->created_at->format('d-m-Y | H:i:s') }}  <br/> Editor: {{ $histories[0]->user  }}   </b></p>
+                            <span class="badge badge-pill badge-warning p-1">Edit {{ (count($histories) - 1)  }}</span>
+                            <!-- check if activity is null || not -->
+                            @if($histories[0]->activity == NULL)
+                            @else
+                            <p> Changed Activity to : {{ $histories[0]->activity  }}  </p>
+                            <!-- end activity check  -->
+                            @endif
+
+                            <!-- check status is null || not -->
+                            @if($histories[0]->status == NULL)
+                            @else
+                            <p> Changed Status to : 
+                                @if ($histories[0]->status ==  1)
+                                    <i class="fas fa-check-circle"></i>
+                                @else
+                                    <i class="fas fa-hourglass-half"></i>
+                                @endif                                                                
+                            </p>
+                            @endif
+                            <!-- end status check  -->
+
+                            <!-- check if remark is null || not -->
+                            @if($histories[0]->remarks == NULL)
+                            @else
+                            <p> Changed Comments to : <br/>
+                                {{ $histories[0]->remarks }}
+                            </p>
+                            <!-- end status check  -->
+                            @endif
                         </div>
-
-
-                        
-
                     </div>
     </div>
 

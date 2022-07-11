@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\HistoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,13 +22,7 @@ Route::put('/activty/update/{id}' , [ActivitiesController::class , 'updateSingle
 Route::get('/allActivities' , [ActivitiesController::class , 'allActivities'])->name('allActivities');
 Route::get('/searchActivities' , [ActivitiesController::class , 'searchActivities'])->name('searchActivities');
 
-
-
-
-Route::get('/activity/editHistory/1', function () {
-    return view('pages.editHistory');
-});
-
+Route::get('/history/{id}' , [HistoryController::class , 'getAllHistory'])->name('getAllHistory');
 
 Route::get('/users', function () {
     return view('users.users');

@@ -14,7 +14,7 @@
                                         <i class="fas fa-book"></i>
                                     </div>
                                     <div class="stats-data">
-                                        <div class="stats-number">6</div>
+                                        <div class="stats-number"> {{ count($activitiesAll) }}</div>
                                         <div class="stats-change">
                                             <span class="stats-percentage"></span>
                                             <span class="stats-timeframe">Starting from March</span>
@@ -31,7 +31,7 @@
                                         <i class="fas fa-check"></i>
                                     </div>
                                     <div class="stats-data">
-                                        <div class="stats-number">4</div>
+                                        <div class="stats-number"> {{ count($activitiesComplete ) }} </div>
                                     </div>
                                 </div>
                             </div>
@@ -44,18 +44,17 @@
                                         <i class="far fa-times"></i>
                                     </div>
                                     <div class="stats-data">
-                                        <div class="stats-number">5</div>
+                                        <div class="stats-number"> {{ count($activitiesPending ) }} </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card spur-card">
                                 <div class="card-header bg-warning ">
-                                    <form class="container py-3 row" action="searchAct.php" method="post">
-                                        <!-- <div class="row"> -->
+                                    <form action="{{ route('searchActivities') }}" method="get" class="container py-3 row" >
                                             <div class="col-xl-4">
                                                 <label for="startDate"> Start Date</label>
                                                 <input type="date" name="start_date" class="form-control" id="">
@@ -66,17 +65,16 @@
                                             </div>
                                             <div class="col-xl-4">
                                                 <label for="startDate"> Search</label>
-                                                <button type="button" class="btn btn-secondary btn-md btn-block"> Search </button>
+                                                <button type="submit" class="btn btn-secondary btn-md btn-block"> Search </button>
                                             </div>
-                                        <!-- </div> -->
                                     </form>       
-                                        <!--                                                                      
-                                        <div class="col-xl-4"><input type="date" name="start_date" class="form-control" id=""></div>
-                                        <div class="col-xl-4"><input type="date" name="start_date" class="form-control" id=""></div>
-                                        <div class="col-xl-4"><input type="date" name="start_date" class="form-control" id=""></div> -->
                                 </div>
-                                <div class="card-body ">
+                                <div class="card-body py-5">
                                     <table class="table table-striped table-in-card">
+                                        @if(count($activitiesFilter) == 0 ) 
+                                            <h2> No Recent Activities </h2>
+                                        @endif
+                                        @if(count($activitiesFilter) > 0 )                                         
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -88,21 +86,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $counter = 1;
+                                            @endphp
+                                            @foreach( $activitiesFilter as $data )
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>23rd September </td>
-                                                <td> Jeff </td>
-                                                <td> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab  </td>
-                                                <td> Jeff </td>
-                                                <td><button type="button" class="btn btn-primary">Primary</button</td>
+                                                <th scope="row"> {{ $counter++ }} </th>
+                                                <td> {{ $data->created_at->format('d-m-Y | H:i:s') }}</td>
+                                                <td> {{ $data->user }} </td>
+                                                <td> {{ $data->activity }}  </td>
+                                                <td> {{ $data->user }} </td>
+                                                <td><a href class="btn btn-primary">Primary</a></td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
+
+                                            @endforeach
                                         </tbody>
+                                        @endif
                                     </table>
                                 </div>
                             </div>

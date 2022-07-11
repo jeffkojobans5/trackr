@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('activity_id')->unsigned();
             $table->string('activity')->nullable();
             $table->text('remarks')->nullable();
             $table->string('user');
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->boolean('status')->default(0)->nullable();            
             $table->timestamps();
         });

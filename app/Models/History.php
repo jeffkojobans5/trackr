@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
-    protected $fillable = ['user', 'status', 'remarks' , 'activity'];
+    protected $fillable = ['user', 'status', 'remarks' , 'activity' , 'activity_id'];
+
+    public function activity()
+    {
+        return $this->belongsTo(Post::class);
+    }    
 }
