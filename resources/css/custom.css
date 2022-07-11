@@ -1,0 +1,16 @@
+.fa-check-circle {
+    color: green;
+}
+
+.fa-hourglass-half {
+    color: orange
+}
+
+.act {
+    font-weight: bold;
+}
+
+.activity-comments {
+    background-color: whitesmoke;
+    padding: 1rem;
+}
