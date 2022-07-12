@@ -20,7 +20,7 @@
             $counter = 1;
         @endphp
         @foreach ($todayAct as $data) 
-            <p> {{ $counter++ }} At <b> {{ $data->created_at->format('H:i:s') }} </b> today  {{ $data->user }} created an <a href="{{ route('singleAct' , ['id' => $data->id] ) }}"     > activity </a>. </p>
+            <p> {{ $counter++ }} At <b> {{ $data->created_at->format('H:i:s') }} </b> today  {{ $data->user }} created an <a href="{{ route('singleAct' , ['id' => $data->id] ) }}"     > activity </a> </p>
         @endforeach
     </div>
     <div class="container-fluid mt-3">
@@ -29,7 +29,7 @@
             $counter = 1;
         @endphp
         @foreach ($edits as $data) 
-            <p>  {{ $counter++ }} At <b> {{ $data->created_at->format('H:i:s') }} </b> today  {{ $data->user }} updated an <a href="{{ route('singleActEdit' , ['id' => $data->id] ) }}"     > activity </a>. </p>
+            <p>  {{ $counter++ }} At <b> {{ $data->created_at->format('H:i:s') }} </b> today  {{ $data->user }} updated an <a href="{{ route('singleActEdit' , ['id' => $data->id] ) }}"     > activity </a> </p>
         @endforeach
     </div>    
 </main>

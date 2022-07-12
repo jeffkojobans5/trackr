@@ -14,7 +14,7 @@
 
 <body>
     <div class="form-screen">
-                        <a href="{{ route('dashboard') }}" class="spur-logo"><i class="fas fa-bolt"></i> <span> Trackr </span></a>
+                        <a href="{{ route('addActivity') }}" class="spur-logo"><i class="fas fa-bolt"></i> <span> Trackr </span></a>
 
         <div class="card account-dialog">
             <div class="card-header bg-primary text-white"> Restore password</div>

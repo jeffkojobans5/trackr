@@ -57,7 +57,9 @@ class ActivitiesController extends Controller
         ->with('activitiesThree' , $activitiesThree)
         ->with('activitiesAll' , $activitiesAll)
         ->with('activitiesComplete' , $activitiesComplete)
-        ->with('activitiesPending' , $activitiesPending);
+        ->with('activitiesPending' , $activitiesPending)
+        ->with('user' , Auth::user()->name);
+
     }    
 
     public function getSingle ($id) {
@@ -103,7 +105,7 @@ class ActivitiesController extends Controller
 
             $changes = $newAct->getChanges();
             $insertHis = new History($changes);
-            $insertHis->user = Auth::user->name;
+            $insertHis->user = Auth::user()->name;
             $insertHis->activity_id = $id;  
             $insertHis->save();
         }        
@@ -140,12 +142,12 @@ class ActivitiesController extends Controller
         ->with('activitiesFilter', $activitiesFilter);
     }    
 
-    public function dashboard () {
+    public function dailyReport () {
         $activitiesThree = Activity::latest()->take(3)->get();
         $todayAct = Activity::whereDate('created_at', Carbon::today())->orderBy('id', 'DESC')->get();
         $edits = History::where('act' , '=' , null)->orderBy('id', 'DESC')->get();
 
-        return view('pages.dashboard')->with('todayAct' , $todayAct)->with('edits' , $edits);
+        return view('pages.dailyReport')->with('todayAct' , $todayAct)->with('edits' , $edits);
     } 
 
 

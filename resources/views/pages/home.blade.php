@@ -6,7 +6,7 @@
 
 <main class="dash-content">
     <div class="container-fluid">
-        <h3 id="my-section-1" class="content-anchor mb-3"> <b> <span id="greetings"></span> </b> Jeff, </h3>
+        <h3 id="my-section-1" class="content-anchor mb-3"> <b> <span id="greetings"></span> ,</b> {{ $user }} </h3>
                     <div class="row dash-row">
                         <div class="col-xl-4">
                             <div class="stats stats-primary">

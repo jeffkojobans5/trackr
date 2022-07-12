@@ -18,12 +18,14 @@
                 <a href="#!" class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </a>
-                                <a href="{{ route('dashboard') }}" class="spur-logo"><i class="fas fa-bolt"></i> <span> Trackr </span></a>
+                <a href="{{ route('addActivity') }}" class="spur-logo"><i class="fas fa-bolt"></i> <span> Trackr </span></a>
 
             </header>
             <nav class="dash-nav-list">
-                <a href=" {{ route('dashboard') }} " class="dash-nav-item">
+                <a href=" {{ route('addActivity') }} " class="dash-nav-item">
                     <i class="fas fa-home"></i> Dashboard </a>
+                <a href=" {{ route('dailyReport') }} " class="dash-nav-item">
+                    <i class="fas fa-book"></i>  Daily Report </a>
                 <div class="dash-nav-dropdown">
                     <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
                         <i class="fas fa-chart-bar"></i> Activities </a>
@@ -46,12 +48,15 @@
 
                 <div class="tools">
                     <div class="dropdown tools-item">
+                        <a href="https://github.com/jeffkojobans5/trackr" target="_blank" class="tools-item mr-3">
+                            <i class="fab fa-github"></i>
+                        </a>                      
                         <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="dropdown-item" href="{{ route('addActivity') }}"
                             onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();">
                              {{ __('Logout') }}

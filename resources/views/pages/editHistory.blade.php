@@ -53,7 +53,7 @@
                                                         @if($histories[$i]->remarks == NULL)
                                                         @else
                                                         <p> Changed Comments to : <br/>
-                                                            {{ $histories[$i]->remarks }}
+                                                            {!! nl2br(e($histories[$i]->remarks)) !!}
                                                         </p>
                                                         <!-- end status check  -->
                                                         @endif
@@ -77,7 +77,7 @@
                                                             @endif                                                                
                                                         </p>
                                                         <p> Initial Comments  : <br/>
-                                                            {{ $histories[ count($histories) - 1]->remarks }}
+                                                        {!! nl2br(e($histories[ count($histories) - 1]->remarks)) !!}
                                                         </p>
                                                     </div>
                                                 </td>                                                    
@@ -89,6 +89,8 @@
 
                         @endif
                     </div>
+                    <div class="pg mt-1"> {{ $histories->links() }} </div>
+
     </div>
 </main>
 

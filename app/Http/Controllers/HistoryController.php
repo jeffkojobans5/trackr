@@ -11,7 +11,7 @@ class HistoryController extends Controller
     //
     public function getAllHistory ($id) {
 
-        $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->paginate(4);
+        $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->paginate(5);
 
         return view('pages.editHistory')->with('histories' , $histories);
     }
