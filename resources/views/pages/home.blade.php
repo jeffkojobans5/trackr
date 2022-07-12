@@ -111,11 +111,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $counter = 1;
+                                            @endphp
                                             @foreach( $activitiesThree as $data )
                                                 <tr>
-                                                    <th scope="row">1</th>
+                                                    <th scope="row"> {{ $counter++ }} </th>
                                                     <td> {{ Str::limit($data->activity, 5) }} </td>
-                                                    <td> {{ $data->user }} </td>
+                                                    <td> {{ Str::limit($data->user, 7) }} </td>
                                                     <td><a class="button bg-primary btn text-white" href="{{ route('getSingle' , ['id' => $data->id] ) }} "> View </a> </td>
                                                 </tr>
                                             @endforeach        

@@ -102,8 +102,11 @@
                                     </table>
                                 </div>
                             </div>
-                        </div
+                            </div
+                        </div>
                     </div>
-                </div>
+                    <div class="pg mt-1"> {{ $activitiesAll->links() }} </div>
             </main>
+
+
 @stop

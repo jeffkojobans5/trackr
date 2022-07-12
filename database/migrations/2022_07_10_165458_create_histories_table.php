@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('activity')->nullable();
             $table->text('remarks')->nullable();
             $table->string('user');
+            $table->boolean('act')->nullable();
             $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->boolean('status')->default(0)->nullable();            
             $table->timestamps();

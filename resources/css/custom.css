@@ -14,3 +14,8 @@
     background-color: whitesmoke;
     padding: 1rem;
 }
+
+.pg svg{
+    height: 50px;
+    width: 50px;
+}

@@ -37,7 +37,8 @@
                                     <p> <span class="act"> <i class="fa fa-pen" aria-hidden="true"></i> No Comments yet </span> </p>
                                 @endif                            
                         </div>
-                        <div class="col-xl-6 p-3">
+                        {{-- <div class="col-xl-6 p-3">
+                            @if()
                             <p> <b>Updated on :   {{ $histories[0]->created_at->format('d-m-Y | H:i:s') }}  <br/> Editor: {{ $histories[0]->user  }}   </b></p>
                             <span class="badge badge-pill badge-warning p-1">Edit {{ (count($histories) - 1)  }}</span>
                             <!-- check if activity is null || not -->
@@ -68,7 +69,7 @@
                             </p>
                             <!-- end status check  -->
                             @endif
-                        </div>
+                        </div> --}}
                     </div>
     </div>
 

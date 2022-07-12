@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card spur-card">
-                                <div class="card-header bg-warning ">
+                                <div class="card-header bg-white ">
                                     <form action="{{ route('searchActivities') }}" method="get" class="container py-3 row" >
                                             <div class="col-xl-4">
                                                 <label for="startDate"> Start Date</label>

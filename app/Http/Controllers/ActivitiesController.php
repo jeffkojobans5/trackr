@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\History;
+use Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class ActivitiesController extends Controller
 {
@@ -21,7 +23,7 @@ class ActivitiesController extends Controller
         // inserts request into DB
         $newAct->activity = $request->activity;
         $newAct->remarks = $request->remarks;
-        $newAct->user = "kojo";
+        $newAct->user = Auth::user()->name;
 
         // saves
         $saved = $newAct->save();
@@ -33,13 +35,14 @@ class ActivitiesController extends Controller
             // inserts request into DB
             $newHistory->activity = $request->activity;
             $newHistory->remarks = $request->remarks;
-            $newHistory->user = "kojo";  
+            $newHistory->user = Auth::user()->name;  
+            $newHistory->act = 1;  
             $newHistory->activity_id = $newAct->id;  
             $newHistory->save();
             Alert::success('Success', 'Your Activity is saved');
         }  
 
-        return redirect('/')->with('status' , 'success');
+        return redirect('/addActivity')->with('status' , 'success');
     }
 
 
@@ -85,7 +88,7 @@ class ActivitiesController extends Controller
         $newAct->activity = $request->activity;
         $newAct->status = $request->status;
         $newAct->remarks = $request->remarks;
-        $newAct->user = "kojo";
+        $newAct->user = Auth::user()->name;
 
         // saves
         $saved = $newAct->save();
@@ -100,7 +103,7 @@ class ActivitiesController extends Controller
 
             $changes = $newAct->getChanges();
             $insertHis = new History($changes);
-            $insertHis->user = "kojo";
+            $insertHis->user = Auth::user->name;
             $insertHis->activity_id = $id;  
             $insertHis->save();
         }        
@@ -110,7 +113,7 @@ class ActivitiesController extends Controller
     public function allActivities () {
         // fetch activity status for dashboard
         $activitiesThree = Activity::latest()->take(3)->get();
-        $activitiesAll = Activity::all();
+        $activitiesAll = Activity::paginate(10);
         $activitiesPending = Activity::where('status' , '=' , 0)->get();
         $activitiesComplete = Activity::where('status' , '=' , 1)->get();
         
@@ -136,6 +139,24 @@ class ActivitiesController extends Controller
         ->with('activitiesPending' , $activitiesPending)
         ->with('activitiesFilter', $activitiesFilter);
     }    
+
+    public function dashboard () {
+        $activitiesThree = Activity::latest()->take(3)->get();
+        $todayAct = Activity::whereDate('created_at', Carbon::today())->orderBy('id', 'DESC')->get();
+        $edits = History::where('act' , '=' , null)->orderBy('id', 'DESC')->get();
+
+        return view('pages.dashboard')->with('todayAct' , $todayAct)->with('edits' , $edits);
+    } 
+
+
+    
+    public function singleAct ($id) {
+
+        $histories = Activity::findorfail($id);
+
+        return view('pages.singleAct')->with('histories' , $histories);
+    }        
+
 
 
 
