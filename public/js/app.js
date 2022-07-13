@@ -1,4 +1,4 @@
-import './bootstrap';
+// import './bootstrap';
 /*!
  * spur-template - An admin template based on Bootstrap 4
  * Version v1.1.0
