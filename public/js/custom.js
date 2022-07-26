@@ -1,14 +1,11 @@
 // greetings
 let greet = document.getElementById('greetings')
-var d = new Date();
-var time = d.getHours();
+const time = new Date().getHours();
 
-if (time < 12) {
-  greet.innerHTML = "Good Morning"
-}
-if (time > 12) {
-  greet.innerHTML = "Good Afternoon"
-}
-if (time == 12) {
-  greet.innerHTML = "Good Evening"
+if (time < 10) {
+  greet.innerHTML = "Good morning";
+} else if (time < 20) {
+  greet.innerHTML = "Good Afternoon";
+} else {
+  greet.innerHTML = "Good evening";
 }

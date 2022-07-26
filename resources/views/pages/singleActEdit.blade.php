@@ -13,7 +13,6 @@
     </div>
     <div class="container-fluid ">
                     <div class="row dash-row">
-
                             <table class="table table-striped table-in-card">
                                         <thead>
                                             <tr>
@@ -24,7 +23,9 @@
                                             {{-- inital activity here --}}
                                             <tr>
                                                 <td>
+                                                    
                                                     <div class="col-xl-6 p-3">
+                                                        <p> Activity : <a href={{ route('getSingle' , ['id' => $activity->id] ) }}> {{ $activity->activity }} </a> </p>   
                                                         <p> <b>Updated on :   {{ $histories->created_at->format('d-m-Y | H:i:s') }}  <br/> Editor: {{ $histories->user  }}   </b></p>
                                                         <!-- check if activity is null || not -->
                                                         @if($histories->activity == NULL)

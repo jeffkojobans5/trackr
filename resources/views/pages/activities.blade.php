@@ -81,7 +81,7 @@
                                             @php
                                                 $counter = 1;
                                             @endphp
-                                            @foreach( $activitiesAll as $data )
+                                            @foreach( $activitiesPag as $data )
                                                 <tr>
                                                     <th scope="row"> {{ $counter++ }}</th>
                                                     <td scope="row"> {{ $data->created_at->diffForHumans() }}</td>
@@ -105,7 +105,7 @@
                             </div
                         </div>
                     </div>
-                    <div class="pg mt-1"> {{ $activitiesAll->links() }} </div>
+                    <div class="pg mt-1"> {{ $activitiesPag->links() }} </div>
             </main>
 
 

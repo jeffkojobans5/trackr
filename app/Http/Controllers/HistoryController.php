@@ -19,8 +19,9 @@ class HistoryController extends Controller
     public function singleActEdit ($id) {
 
         $histories = History::findorfail($id);
+        $activity  = Activity::findorfail($histories->activity_id);
 
-        return view('pages.singleActEdit')->with('histories' , $histories);
+        return view('pages.singleActEdit')->with('histories' , $histories)->with('activity' , $activity);
     }    
 
 

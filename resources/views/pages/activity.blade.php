@@ -17,9 +17,15 @@
                     <div class="row dash-row">
                         <div class="col-xl-6 p-3">
                             <div class="alert alert-success" role="alert"><span class="act"> <i class="fa fa-book" aria-hidden="true"></i> Activity: </span>  {{ $activity->activity }} </div>                                                        
-                            <p> <span class="act"> <i class="fa fa-user-edit" aria-hidden="true"></i>  Created By: </span> {{ $activity->user }} </p>
-                            <p> <span class="act"> <i class="fa fa-calendar-alt" aria-hidden="true"></i> Date : </span> {{ $activity->created_at->format('d-m-Y') }}  </p>
-                            <p> <span class="act"> <i class="fa fa-clock" aria-hidden="true"></i>  Time: </span>  {{ $activity->created_at->format('H:i:s') }}  </p>
+                            <p> <span class="act"> <i class="fa fa-user-edit" aria-hidden="true"></i>  
+                            @if(count($histories) < 1)
+                                Created By: 
+                            @else
+                                Updated By:
+                            @endif
+                            </span> {{ $activity->user }} </p>
+                            <p> <span class="act"> <i class="fa fa-calendar-alt" aria-hidden="true"></i> Date : </span> {{ $activity->updated_at->format('d-m-Y') }}  </p>
+                            <p> <span class="act"> <i class="fa fa-clock" aria-hidden="true"></i>  Time: </span>  {{ $activity->updated_at->format('H:i:s') }}  </p>
                             <p> <span class="act"> <i class="fa fa-monitor-heart-rate" aria-hidden="true"></i> 
                             Status: 
                                 @if ($activity->status ==  1)

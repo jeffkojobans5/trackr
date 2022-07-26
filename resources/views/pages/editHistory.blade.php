@@ -86,11 +86,9 @@
                             </table>
                         @else 
                             <h1> Sorry there no edits yet</h1>
-
                         @endif
                     </div>
                     <div class="pg mt-1"> {{ $histories->links() }} </div>
-
     </div>
 </main>
 

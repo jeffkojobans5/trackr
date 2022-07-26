@@ -41,7 +41,6 @@ class ActivitiesController extends Controller
             $newHistory->save();
             Alert::success('Success', 'Your Activity is saved');
         }  
-
         return redirect('/addActivity')->with('status' , 'success');
     }
 
@@ -59,24 +58,19 @@ class ActivitiesController extends Controller
         ->with('activitiesComplete' , $activitiesComplete)
         ->with('activitiesPending' , $activitiesPending)
         ->with('user' , Auth::user()->name);
-
     }    
 
     public function getSingle ($id) {
         $activity = Activity::findOrFail($id);
         $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->get();
-
         return view('pages.activity')->with('activity' , $activity)->with('histories' , $histories);
     }
-
 
     public function editSingle ($id) {
         $activity = Activity::findOrFail($id);
         $histories = Activity::findorfail($id)->history()->orderBy('id', 'DESC')->get();
-
-        return view('pages.activityEdit')->with('activity' , $activity)->with('histories' , $histories);
+        return view('pages.activityEdit')->with('activity' , $activity);
     }
-
 
     public function updateSingle (Request $request , $id) {
         $validated = $request->validate([
@@ -84,7 +78,7 @@ class ActivitiesController extends Controller
         ]);
 
         // finds activity
-        $newAct = Activity::find($id);
+        $newAct = Activity::findorfail($id);
 
         // updated request into DB
         $newAct->activity = $request->activity;
@@ -115,7 +109,8 @@ class ActivitiesController extends Controller
     public function allActivities () {
         // fetch activity status for dashboard
         $activitiesThree = Activity::latest()->take(3)->get();
-        $activitiesAll = Activity::paginate(10);
+        $activitiesPag = Activity::paginate(10);
+        $activitiesAll = Activity::all();
         $activitiesPending = Activity::where('status' , '=' , 0)->get();
         $activitiesComplete = Activity::where('status' , '=' , 1)->get();
         
@@ -123,38 +118,37 @@ class ActivitiesController extends Controller
         ->with('activitiesThree' , $activitiesThree)
         ->with('activitiesAll' , $activitiesAll)
         ->with('activitiesComplete' , $activitiesComplete)
-        ->with('activitiesPending' , $activitiesPending);
+        ->with('activitiesPending' , $activitiesPending)
+        ->with('activitiesPag' , $activitiesPag);
     }  
 
     public function searchActivities (Request $request) {
         $activitiesFilter = Activity::whereBetween('created_at', [$request->get('start_date'), $request->get('end_date')])->get();
 
-        $activitiesThree = Activity::latest()->take(3)->get();
         $activitiesAll = Activity::all();
         $activitiesPending = Activity::where('status' , '=' , 0)->get();
         $activitiesComplete = Activity::where('status' , '=' , 1)->get();
         
         return view('pages.searchActivities')
-        ->with('activitiesThree' , $activitiesThree)
         ->with('activitiesAll' , $activitiesAll)
         ->with('activitiesComplete' , $activitiesComplete)
         ->with('activitiesPending' , $activitiesPending)
         ->with('activitiesFilter', $activitiesFilter);
     }    
 
+
     public function dailyReport () {
-        $activitiesThree = Activity::latest()->take(3)->get();
-        $todayAct = Activity::whereDate('created_at', Carbon::today())->orderBy('id', 'DESC')->get();
-        $edits = History::where('act' , '=' , null)->orderBy('id', 'DESC')->get();
+        $todayAct = History::whereDate('created_at', Carbon::today())->groupBy('activity_id')->get();
+
+        $edits = History::whereDate('created_at', Carbon::today())->where('act' , '=' , null)->orderBy('id', 'DESC')->get();
 
         return view('pages.dailyReport')->with('todayAct' , $todayAct)->with('edits' , $edits);
     } 
 
-
     
     public function singleAct ($id) {
 
-        $histories = Activity::findorfail($id);
+        $histories = History::findorfail($id);
 
         return view('pages.singleAct')->with('histories' , $histories);
     }        

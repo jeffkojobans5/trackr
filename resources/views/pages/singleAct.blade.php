@@ -13,7 +13,6 @@
     </div>
     <div class="container-fluid ">
                     <div class="row dash-row">
-
                             <table class="table table-striped table-in-card">
                                         <thead>
                                             <tr>
